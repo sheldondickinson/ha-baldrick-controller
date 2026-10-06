@@ -2,8 +2,8 @@ class PixelToolPanel extends HTMLElement {
   set hass(hass) {this._hass=hass;}
   connectedCallback(){
     if(this._frame)return;
-    this.style.cssText='display:block;height:100%;';
-    const frame=document.createElement('iframe');frame.src='/baldrick_controller_static/pixeltool/index.html?v=0.1.1';frame.title='PixelTool';frame.style.cssText='width:100%;height:100%;border:0';this.append(frame);this._frame=frame;
+    this.style.cssText='display:block;height:100vh;overflow:hidden;';
+    const frame=document.createElement('iframe');frame.src='/baldrick_controller_static/pixeltool/index.html?v=0.1.1';frame.title='PixelTool';frame.style.cssText='display:block;width:100%;height:100vh;border:0';this.append(frame);this._frame=frame;
     this._listener=async e=>{
       if(e.origin!==location.origin||e.source!==frame.contentWindow||e.data?.type!=='pixeltool-api')return;
       let result,error;
@@ -13,6 +13,6 @@ class PixelToolPanel extends HTMLElement {
     };
     window.addEventListener('message',this._listener);
   }
-  disconnectedCallback(){window.removeEventListener('message',this._listener);this._frame=null;}
+  disconnectedCallback(){window.removeEventListener('message',this._listener);this._frame?.remove();this._frame=null;}
 }
 customElements.define('baldrick-pixeltool-panel',PixelToolPanel);
