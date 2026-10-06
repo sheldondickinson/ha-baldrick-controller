@@ -144,6 +144,12 @@ class Library:
             raise ValueError("Invalid collection")
         key = data.setdefault("id", uuid.uuid4().hex)
         raw = json.dumps(data)
+        active = self.db.execute(f"SELECT 1 FROM {kind} WHERE id=?", (key,)).fetchone()
+        historical = self.db.execute(
+            "SELECT 1 FROM revisions WHERE resource=? LIMIT 1", (key,)
+        ).fetchone()
+        if not active and historical:
+            raise ValueError("A retired permanent identifier cannot be reused")
         with self.db:
             self.db.execute(
                 "INSERT INTO revisions(kind,resource,data) VALUES(?,?,?)",
@@ -168,5 +174,10 @@ class Library:
             i["model_id"] == key for i in self.list("instances")
         ):
             raise ValueError("Remove associated instances first")
+        self.get(kind, key)
         with self.db:
+            self.db.execute(
+                "INSERT INTO revisions(kind,resource,data) VALUES(?,?,?)",
+                (kind, key, json.dumps({"deleted": True})),
+            )
             self.db.execute(f"DELETE FROM {kind} WHERE id=?", (key,))

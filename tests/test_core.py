@@ -459,3 +459,17 @@ async def test_timeout_is_bounded_and_not_retried():
     with pytest.raises(BoardError, match="TimeoutError"):
         await client._request("turnip_test/test_config", {"test_mode_active": False})
     assert session.calls == 1
+
+
+def test_retired_identity_and_assignment_history(tmp_path):
+    library = Library(tmp_path / "db")
+    m = model()
+    library.save("models", m)
+    library.remove("models", m["id"])
+    with pytest.raises(ValueError, match="retired"):
+        library.save("models", m)
+    rows = library.db.execute(
+        "SELECT data FROM revisions WHERE resource=? ORDER BY id", (m["id"],)
+    ).fetchall()
+    assert json.loads(rows[0][0])["coords"] == m["coords"]
+    assert json.loads(rows[-1][0]) == {"deleted": True}
