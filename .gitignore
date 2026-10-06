@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+private/
+*.sqlite3*
+*.xmodel
+model-data.json
+*.tar.gz
+
+.mypy_cache/

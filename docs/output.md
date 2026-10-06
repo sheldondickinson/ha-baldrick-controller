@@ -1,0 +1,13 @@
+# Pixel output, mapping and ownership
+
+The current mapping adapter supports Baldrick8/17 firmware v3.8.8, including the Baldrick17 secondary v3.8.4. Port-relative configured model channels concatenate into controller-local DDP byte offsets. With the verified `KeepChannelNumbers` false configuration, universe/start addresses do not add an offset. Each configured port has at most 2250 channels (750 RGB pixels). Model start channels and actual configured capacities are checked; assignments can span ports using explicit segments. First-model-node offsets permit partially connected props. Overlapping instance/segment assignments fail validation.
+
+Controller colour order is applied by the controller; PixelTool sends logical RGB once. Non-RGB orders and unverified null/group/reverse transformations are currently blocked rather than guessed. Do not alter controller or xLights settings to work around validation silently.
+
+DDP uses UDP 4048, destination 1, data type 0 as in xLights, 1440-byte payloads, big-endian byte offsets, sequence 1–15 and PUSH only on the final packet of the complete frame. Sparse mapped segments retain offsets. Rendering is limited to 20 fps and an absolute 64/255 cap; the default is 12/255 (about 4.7%). Native tests additionally cap at 5%.
+
+Start a session, choose a saved instance, validate the assignment, stop xLights/FPP output explicitly, confirm the physical load and then enable output. Ownership excludes other PixelTool sessions only. External DDP senders cannot be locked out; visible sources are checked before arming and during streaming when the companion source IP is configured. Activity detection cannot guarantee a future sender will remain stopped. Release/takeover means stopping external output, releasing the previous session, then claiming a new one; no automatic force takeover.
+
+A heartbeat extends a 60-second lease. Mapping/model edits, restart, expiry, loss of ownership, board identity/configuration changes and polling failure disarm output. STOP emits five complete black frames for mapped nodes while ownership is held. A graceful shutdown does the same. A hard crash cannot guarantee blackout; controllers may retain their last frame. Restart always starts disarmed and never resumes a saved session. Physical blackout must be visually verified, not inferred solely from packets.
+
+MARK compares selected positions. It never detects inserted pixels. String boundaries may be suggested from imported metadata; geometric turns and animation submodels are not physical checkpoint evidence. Submodel attributes are retained, but their animation semantics are not interpreted.

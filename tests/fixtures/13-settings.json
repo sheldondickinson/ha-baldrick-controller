@@ -1,0 +1,33 @@
+{
+  "hostname": "fixture-13",
+  "sync_network_tests": 0,
+  "vendor_names": "",
+  "release_channel": "main",
+  "buttons": [],
+  "ports": [
+    {
+      "relay_threshold": 0,
+      "port_type": "dmx",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 512,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 16777215
+        }
+      ]
+    }
+  ],
+  "presets": [],
+  "boot_dmx_preset": "",
+  "start_address": 1,
+  "start_universe": 0,
+  "channels_per_universe": 510,
+  "fixed_universes_per_port": false,
+  "busk_board": {
+    "version": 1,
+    "buttons": []
+  }
+}

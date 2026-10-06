@@ -1,0 +1,270 @@
+{
+  "hostname": "fixture-14",
+  "release_channel": "main",
+  "vendor_names": "bals",
+  "busk_board": {
+    "version": 1,
+    "buttons": []
+  },
+  "sync_network_tests": 0,
+  "buttons": [],
+  "ports": [
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 13054266
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 13002790
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 691724
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 14741331
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 9785296
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 2646224
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 11229083
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 6141392
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 5500759
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 1500,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 7105130
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 210,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 7554346
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 300,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 10256934
+        },
+        {
+          "name": "Fixture model 2",
+          "num_channels": 300,
+          "start_channel": 300,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 13054266
+        },
+        {
+          "name": "Fixture model 3",
+          "num_channels": 300,
+          "start_channel": 600,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 13002790
+        },
+        {
+          "name": "Fixture model 4",
+          "num_channels": 300,
+          "start_channel": 900,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 691724
+        },
+        {
+          "name": "Fixture model 5",
+          "num_channels": 300,
+          "start_channel": 1200,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 14741331
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": [
+        {
+          "name": "Fixture model 1",
+          "num_channels": 300,
+          "start_channel": 0,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 13054266
+        },
+        {
+          "name": "Fixture model 2",
+          "num_channels": 450,
+          "start_channel": 300,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 13002790
+        },
+        {
+          "name": "Fixture model 3",
+          "num_channels": 450,
+          "start_channel": 750,
+          "brightness": 100,
+          "colour_order": "RGB",
+          "test_colour": 691724
+        }
+      ]
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": []
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": []
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": []
+    },
+    {
+      "relay_threshold": 0,
+      "port_type": "pixel",
+      "models": []
+    }
+  ],
+  "cunningfx": {
+    "jobs": []
+  },
+  "start_address": 19265,
+  "start_universe": 1,
+  "channels_per_universe": 510,
+  "fixed_universes_per_port": false
+}

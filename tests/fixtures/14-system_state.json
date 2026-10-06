@@ -1,0 +1,72 @@
+{
+  "host_comms": {
+    "comms_state": [
+      32
+    ]
+  },
+  "board_manufacturer": "ILightThat",
+  "board_manufacturer_id": 5,
+  "board_model": "Baldrick17",
+  "board_id": "001122334414",
+  "audio_support": false,
+  "temperature": [
+    22.75
+  ],
+  "last_settings_update": 377432810,
+  "ota": {
+    "updatable": [
+      {
+        "current_firmware_version": "v3.8.8",
+        "current_factory_version": "recovery_5.4.0",
+        "current_bootloader_checksum": "32ab0d624bb399dfd976b2158905546e",
+        "current_partition_checksum": "9c57a76ed996748ee7393a41df755985",
+        "available_firmware_version": "v3.8.8",
+        "available_factory_version": "recovery_5.4.0",
+        "available_bootloader_checksum": "32ab0d624bb399dfd976b2158905546e",
+        "available_partition_checksum": "9c57a76ed996748ee7393a41df755985"
+      },
+      {
+        "current_firmware_version": "v3.8.4",
+        "current_factory_version": "recovery_1.3",
+        "current_bootloader_checksum": "561b6496a66e02d22093130a0f3fd845",
+        "current_partition_checksum": "9c57a76ed996748ee7393a41df755985",
+        "available_firmware_version": "v3.8.4",
+        "available_factory_version": "recovery_1.3",
+        "available_bootloader_checksum": "561b6496a66e02d22093130a0f3fd845",
+        "available_partition_checksum": "9c57a76ed996748ee7393a41df755985"
+      }
+    ]
+  },
+  "ram_available": 61896,
+  "ram_minimum": 53380,
+  "ram_largest_block": 53248,
+  "uptime": 316,
+  "oom_count": 0,
+  "ui_messages": [],
+  "last_fs_event": 0,
+  "network_throughput": 40,
+  "fpp": [],
+  "buddies": [],
+  "frame_rate": 0,
+  "test_mode_active": false,
+  "test_dmx_preset": 0,
+  "test_pattern": "off",
+  "test_ports": "|",
+  "test_target": "",
+  "test_brightness": 0,
+  "test_fixed_colours": "",
+  "test_sync_host": "",
+  "fx_state": false,
+  "fx_active": "",
+  "streaming": {
+    "ddp_sources": [],
+    "ddp_dropped": 0,
+    "ddp_recvd": 0,
+    "sacn_sources": [],
+    "sacn_dropped": 0,
+    "sacn_recvd": 0,
+    "artnet_sources": [],
+    "artnet_dropped": 0,
+    "artnet_recvd": 0
+  }
+}
