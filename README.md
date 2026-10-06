@@ -37,6 +37,8 @@ python3 scripts/build_frontend.py
 .venv/bin/pytest -q
 ```
 
+`scripts/verify_installed_ha.py` additionally verifies coordinator recovery inside an installed HA container using isolated scratch state and a synthetic client; it does not connect to production storage.
+
 Node.js and a C++ compiler are required for cross-language rendering parity tests. Edit `pixeltool/static/` source templates, then build the HA shell. Do not edit generated shell copies or the standalone ESP32 project. CI uses the same SQL migrations and validation rules. HA-dependent flows are additionally verified on the deployed HA instance; local mypy does not replace HA runtime verification.
 
 HACS custom-repository packaging is included (`hacs.json`, manifest, translations). This repository remains private; it has not been submitted to HACS or published publicly.
