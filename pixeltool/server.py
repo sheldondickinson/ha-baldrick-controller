@@ -33,6 +33,7 @@ class Engine:
         self.owner = None
         self.deadline = 0.0
         self.native_active = False
+        self.native_stop_uncertain = False
         self.native_deadline = 0.0
         self.native_saved = {}
         self.armed = False
@@ -69,6 +70,7 @@ class Engine:
         return {
             "armed": self.armed,
             "native_active": self.native_active,
+            "native_stop_uncertain": self.native_stop_uncertain,
             "session_active": bool(self.owner),
             "expires_in": max(0, int(self.deadline - time.monotonic())),
             "state": self.state,
@@ -191,10 +193,10 @@ class Engine:
             raise
 
     async def stop(self):
-        was_armed = self.armed or self.native_active
+        was_armed = self.armed or self.native_active or self.native_stop_uncertain
         self.armed = False
         try:
-            if self.native_active:
+            if self.native_active or self.native_stop_uncertain:
                 self.native_active = False
                 client = BaldrickClient(
                     next(
@@ -204,10 +206,20 @@ class Engine:
                     ),
                     self.http,
                 )
-                await client.set_test(
-                    {**self.native_saved, "test_mode_active": False},
-                    {"test_mode_active": False},
-                )
+                try:
+                    await client.set_test(
+                        {**self.native_saved, "test_mode_active": False},
+                        {"test_mode_active": False},
+                    )
+                    self.native_stop_uncertain = False
+                    if self.error and self.error.startswith(
+                        "Native test stop unconfirmed"
+                    ):
+                        self.error = None
+                except BoardError:
+                    self.native_stop_uncertain = True
+                    self.error = "Native test stop unconfirmed: pixels may remain on. Use the board web interface to stop the test."
+                    raise
         finally:
             if was_armed and self.model and self.translation:
                 # Complete black frames even if native-test restoration failed.
@@ -223,6 +235,8 @@ class Engine:
         if not self.selected:
             raise ValueError("Select and validate an instance first")
         b = await self.snapshot(self.instance["board_id"])
+        if not b.pixel_output:
+            raise ValueError("Current firmware is not verified for pixel output")
         if b.settings.get("sync_network_tests") or b.state.get("test_sync_host"):
             raise ValueError(
                 "Turnip test synchronisation enabled; turn it off in the board UI before a test"
@@ -245,6 +259,7 @@ class Engine:
         self.started = time.monotonic()
         self.last_verified = time.monotonic()
         self.error = None
+        self.native_stop_uncertain = False
 
     async def loop(self):
         while True:
@@ -252,8 +267,10 @@ class Engine:
             async with self.lock:
                 try:
                     if self.owner and time.monotonic() >= self.deadline:
-                        await self.stop()
-                        self.owner = None
+                        try:
+                            await self.stop()
+                        finally:
+                            self.owner = None
                     if self.native_active and time.monotonic() >= self.native_deadline:
                         await self.stop()
                     if not self.armed:
@@ -273,7 +290,8 @@ class Engine:
                                 "External output source appeared; release/takeover required"
                             )
                         if (
-                            b.state.get("test_mode_active")
+                            not b.pixel_output
+                            or b.state.get("test_mode_active")
                             or b.settings.get("sync_network_tests")
                             or hashlib.sha256(
                                 json.dumps(b.settings, sort_keys=True).encode()
@@ -291,11 +309,13 @@ class Engine:
                         )
                     )
                 except (ValueError, BoardError, OSError):
-                    self.error = (
-                        "Output stopped: board unavailable or configuration changed"
-                    )
-                    with contextlib.suppress(OSError):
-                        await self.stop()
+                    if not self.native_stop_uncertain:
+                        self.error = (
+                            "Output stopped: board unavailable or configuration changed"
+                        )
+                    if self.armed or self.native_active:
+                        with contextlib.suppress(BoardError, OSError):
+                            await self.stop()
 
 
 async def make_app():

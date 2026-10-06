@@ -413,8 +413,11 @@ async def test_native_restore_failure_still_blackouts(tmp_path, monkeypatch):
         def __init__(self, *args):
             pass
 
+        fails = True
+
         async def set_test(self, *args):
-            raise BoardError("Synthetic timeout")
+            if self.fails:
+                raise BoardError("Synthetic timeout")
 
     monkeypatch.setattr(server, "BaldrickClient", FailedClient)
     e = Engine(
@@ -429,7 +432,19 @@ async def test_native_restore_failure_still_blackouts(tmp_path, monkeypatch):
     with pytest.raises(BoardError):
         await e.stop()
     assert not e.native_active and not e.armed
+    assert e.native_stop_uncertain and "stop unconfirmed" in e.error
     assert len(calls) == 5 and all(all(c == (0, 0, 0) for c in f) for f in calls)
+    e.owner = "owner"
+    e.deadline = 0
+    task = asyncio.create_task(e.loop())
+    await asyncio.sleep(0.4)
+    assert e.owner is None and e.native_stop_uncertain and not task.done()
+    task.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await task
+    FailedClient.fails = False
+    await e.stop()
+    assert not e.native_stop_uncertain and e.error is None
     e.sock.close()
 
 
@@ -473,3 +488,21 @@ def test_retired_identity_and_assignment_history(tmp_path):
     ).fetchall()
     assert json.loads(rows[0][0])["coords"] == m["coords"]
     assert json.loads(rows[-1][0]) == {"deleted": True}
+
+
+@pytest.mark.asyncio
+async def test_firmware_changed_after_selection_blocks_arm(tmp_path):
+    e = Engine(Library(tmp_path / "db"), [], None)
+    e.selected = "fixture-instance"
+    e.instance = {"board_id": "fixture"}
+    b = board()
+    b.state["ota"]["updatable"][0]["current_firmware_version"] = "v999"
+
+    async def snapshot(identity):
+        return b
+
+    e.snapshot = snapshot
+    with pytest.raises(ValueError, match="firmware"):
+        await e.arm(True)
+    assert not e.armed
+    e.sock.close()
