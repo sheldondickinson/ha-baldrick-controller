@@ -1,0 +1,41 @@
+{
+  "title": "Baldrick Controller",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect Baldrick",
+        "data": {
+          "host": "Hostname or IP address"
+        }
+      },
+      "reconfigure": {
+        "title": "Change board address",
+        "data": {
+          "host": "Hostname or IP address"
+        }
+      },
+      "confirm": {
+        "title": "Discovered Baldrick board",
+        "description": "A configured board advertised a peer at {host}. Add this verified board?"
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not read a verified Baldrick board",
+      "wrong_device": "This address belongs to a different board"
+    },
+    "abort": {
+      "already_configured": "This board is already configured",
+      "reconfigure_successful": "Address updated",
+      "cannot_connect": "Could not verify discovered board"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "poll_interval": "Polling interval (seconds)"
+        }
+      }
+    }
+  }
+}
