@@ -1,0 +1,22 @@
+services:
+  pixeltool:
+    image: ha-baldrick-pixeltool:0.1.1
+    build: ..
+    restart: unless-stopped
+    init: true
+    user: "65534:65534"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    ports: ["${PIXELTOOL_BIND_IP:-127.0.0.1}:${PIXELTOOL_PORT:-18099}:8099"]
+    volumes:
+      - ${PIXELTOOL_DATA_DIR:-/srv/data/pixeltool}:/data
+      - ${PIXELTOOL_CONFIG_PATH:-/srv/stacks/ha-baldrick-controller/private/pixeltool.json}:/run/secrets/pixeltool.json:ro
+    tmpfs: ["/tmp:size=16m"]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8099/health',timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    mem_limit: 256m
+    cpus: 1
