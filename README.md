@@ -1,6 +1,6 @@
 # Baldrick Controller and PixelTool
 
-Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.1.1. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
+Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.1.2. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
 
 ## What works
 
@@ -21,7 +21,7 @@ strategy:
   type: custom:baldrick-controller
 ```
 
-The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.1.1` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
+The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.1.2` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
 
 PixelTool is a same-origin HA custom panel at `/pixeltool`, available to HA administrators. Its shell contains no credentials or model data. Authenticated HA API requests are proxied server-side to the companion; this works through the existing HA HTTPS entry point without mixed-content requests or a second login. Configure the private bridge file as documented below.
 

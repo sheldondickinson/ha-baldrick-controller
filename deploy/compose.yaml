@@ -1,6 +1,6 @@
 services:
   pixeltool:
-    image: ha-baldrick-pixeltool:0.1.1
+    image: ha-baldrick-pixeltool:0.1.2
     build: ..
     restart: unless-stopped
     init: true
