@@ -8,6 +8,7 @@ import contextlib
 import hashlib
 import hmac
 import json
+import math
 import os
 import secrets
 import socket
@@ -32,6 +33,11 @@ class Engine:
         self.source_ip = None
         self.owner = None
         self.deadline = 0.0
+        try:
+            self.idle_timeout = library.get("settings", "idle_timeout")
+        except ValueError:
+            self.idle_timeout = 60
+        self.validate_idle_timeout(self.idle_timeout)
         self.native_active = False
         self.native_stop_uncertain = False
         self.native_deadline = 0.0
@@ -68,6 +74,7 @@ class Engine:
 
     def status(self):
         return {
+            "idle_timeout": self.idle_timeout,
             "armed": self.armed,
             "native_active": self.native_active,
             "native_stop_uncertain": self.native_stop_uncertain,
@@ -78,6 +85,31 @@ class Engine:
             "error": self.error,
             "output_limitation": "Session ownership excludes other PixelTool sessions only; external DDP senders must be stopped.",
         }
+
+    @staticmethod
+    def validate_idle_timeout(seconds):
+        if type(seconds) is not int or not 30 <= seconds <= 600:
+            raise ValueError("Idle timeout must be 30–600 seconds")
+
+    def set_idle_timeout(self, seconds):
+        self.validate_idle_timeout(seconds)
+        with self.library.db:
+            self.library.db.execute(
+                "INSERT INTO settings(key,data) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET data=excluded.data",
+                ("idle_timeout", json.dumps(seconds)),
+            )
+        self.idle_timeout = seconds
+        self.renew()
+
+    def renew(self, idle_seconds=0):
+        if (
+            type(idle_seconds) not in (int, float)
+            or not math.isfinite(idle_seconds)
+            or not 0 <= idle_seconds <= 600
+        ):
+            raise ValueError("Invalid UI idle duration")
+        self.deadline = time.monotonic() + max(0, self.idle_timeout - idle_seconds)
+        return idle_seconds < self.idle_timeout
 
     def require_owner(self, token):
         if (
@@ -346,7 +378,7 @@ async def make_app():
 
     async def health(r):
         return web.json_response(
-            {"status": "ok", "armed": engine.armed, "version": "0.1.4"}
+            {"status": "ok", "armed": engine.armed, "version": "0.1.5"}
         )
 
     async def api(r):
@@ -404,18 +436,22 @@ async def make_app():
             if op == "claim":
                 if engine.owner and time.monotonic() < engine.deadline:
                     raise ValueError(
-                        "Another session owns output; stop/release there or wait for expiry"
+                        "PixelTool cannot be used while another device is controlling the controllers. Stop/release there or wait for idle expiry."
                     )
                 await engine.stop()
                 engine.owner = secrets.token_urlsafe(32)
-                engine.deadline = time.monotonic() + 60
+                engine.renew()
                 return web.json_response({"session": engine.owner, **engine.status()})
             if op == "stop":
                 await engine.stop()
                 return web.json_response(engine.status())
             engine.require_owner(token)
             if op == "heartbeat":
-                engine.deadline = time.monotonic() + 60
+                if not engine.renew(payload.get("idle_seconds", 0)):
+                    await engine.stop()
+                    engine.owner = None
+            elif op == "preferences_save":
+                engine.set_idle_timeout(payload.get("idle_timeout"))
             elif op == "release":
                 await engine.stop()
                 engine.owner = None

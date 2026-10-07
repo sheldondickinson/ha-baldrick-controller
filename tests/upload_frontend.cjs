@@ -9,7 +9,7 @@ async function check(existing,invalid=false){
  vm.createContext(context);vm.runInContext(handler,context);
  context.$('upload').onchange();assert(context.$('uploadStatus').textContent.includes('test.xml'));
  if(invalid)await assert.rejects(context.$('uploadBtn').onclick(),/malformed/);else{await context.$('uploadBtn').onclick();assert.equal(context.instance,null);assert.equal(context.model.id,'uploaded');assert(context.$('uploadStatus').textContent.includes('Saved XML test'));}
- assert(!calls.includes('arm'));assert.equal(context.$('ack').checked,false);
+ assert(!calls.includes('arm'));
  if(existing){assert.equal(context.session,'owner');assert(!calls.includes('claim'));assert(!calls.includes('release'));}else{assert.equal(context.session,null);assert.equal(calls[0],'claim');assert.equal(calls.at(-1),'release');}
 }
 (async()=>{await check(false);await check(true);await check(false,true);console.log('XML upload: selection, save, disarmed lease and failure cleanup passed');})().catch(e=>{console.error(e);process.exit(1);});

@@ -506,3 +506,25 @@ async def test_firmware_changed_after_selection_blocks_arm(tmp_path):
         await e.arm(True)
     assert not e.armed
     e.sock.close()
+
+
+def test_idle_preferences_persist_and_renew_remaining_time(tmp_path, monkeypatch):
+    import pixeltool.server as server
+
+    e = Engine(Library(tmp_path / "idle.sqlite3"), [], None)
+    assert e.idle_timeout == 60
+    monkeypatch.setattr(server.time, "monotonic", lambda: 100)
+    e.set_idle_timeout(30)
+    assert e.deadline == 130
+    assert e.renew(25) and e.deadline == 105
+    assert not e.renew(30) and e.deadline == 100
+    for invalid in (29, 601, True, "60", 30.5):
+        with pytest.raises(ValueError):
+            e.set_idle_timeout(invalid)
+    for invalid in (-1, 601, float("nan"), True):
+        with pytest.raises(ValueError):
+            e.renew(invalid)
+    restarted = Engine(Library(tmp_path / "idle.sqlite3"), [], None)
+    assert restarted.idle_timeout == 30 and not restarted.armed
+    e.sock.close()
+    restarted.sock.close()

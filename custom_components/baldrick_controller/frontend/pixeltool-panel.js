@@ -3,7 +3,7 @@ class PixelToolPanel extends HTMLElement {
   connectedCallback(){
     if(this._frame)return;
     this.style.cssText='display:block;height:100vh;overflow:hidden;';
-    const frame=document.createElement('iframe');frame.src='/baldrick_controller_static/pixeltool/index.html?v=0.1.4';frame.title='PixelTool';frame.style.cssText='display:block;width:100%;height:100vh;border:0';this.append(frame);this._frame=frame;
+    const frame=document.createElement('iframe');frame.src='/baldrick_controller_static/pixeltool/index.html?v=0.1.5';frame.title='PixelTool';frame.style.cssText='display:block;width:100%;height:100vh;border:0';this.append(frame);this._frame=frame;
     this._listener=async e=>{
       if(e.origin!==location.origin||e.source!==frame.contentWindow||e.data?.type!=='pixeltool-api')return;
       let result,error;

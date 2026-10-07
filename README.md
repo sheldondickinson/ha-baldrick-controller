@@ -1,6 +1,6 @@
 # Baldrick Controller and PixelTool
 
-Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.1.4. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
+Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.1.5. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
 
 ## What works
 
@@ -21,7 +21,7 @@ strategy:
   type: custom:baldrick-controller
 ```
 
-The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.1.4` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
+The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.1.5` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
 
 PixelTool is a same-origin HA custom panel at `/pixeltool`, available to HA administrators. Its shell contains no credentials or model data. Authenticated HA API requests are proxied server-side to the companion; this works through the existing HA HTTPS entry point without mixed-content requests or a second login. Configure the private bridge file as documented below.
 
@@ -42,3 +42,5 @@ python3 scripts/build_frontend.py
 Node.js and a C++ compiler are required for cross-language rendering parity tests. Edit `pixeltool/static/` source templates, then build the HA shell. Do not edit generated shell copies or the standalone ESP32 project. CI uses the same SQL migrations and validation rules. HA-dependent flows are additionally verified on the deployed HA instance; local mypy does not replace HA runtime verification.
 
 HACS custom-repository packaging is included (`hacs.json`, manifest, translations). This repository remains private; it has not been submitted to HACS or published publicly.
+
+Output actions automatically acquire ownership and start the selected test. Stop xLights/FPP and board tests first. The configurable UI idle timeout (30–600 seconds, default 60) stops and releases output; passive status polling does not keep a session alive. Uploads, previews and mapping selection do not start output.
