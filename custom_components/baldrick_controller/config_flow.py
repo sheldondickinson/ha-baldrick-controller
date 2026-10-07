@@ -18,6 +18,29 @@ class BaldrickFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore[ca
             data["host"], async_get_clientsession(self.hass)
         ).snapshot()
 
+    async def async_step_zeroconf(self, discovery_info):
+        from aiohttp import ClientError, ClientTimeout
+
+        config = self.hass.data.get(DOMAIN, {}).get("pixeltool_config")
+        if not config:
+            return self.async_abort(reason="cannot_connect")
+        try:
+            async with async_get_clientsession(self.hass).post(
+                config["url"] + "/api",
+                json={
+                    "op": "destination_discovery",
+                    "data": {"host": discovery_info.host},
+                },
+                headers={"Authorization": "Bearer " + config["token"]},
+                timeout=ClientTimeout(total=10),
+                allow_redirects=False,
+            ) as response:
+                response.raise_for_status()
+                await response.json()
+        except (ClientError, TimeoutError, ValueError):
+            return self.async_abort(reason="cannot_connect")
+        return self.async_abort(reason="pixeltool_destination_found")
+
     async def async_step_user(self, user_input=None):
         errors = {}
         if user_input:

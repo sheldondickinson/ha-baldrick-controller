@@ -55,7 +55,7 @@ def configured_outputs(board):
             ):
                 raise ValueError("Unverified controller transformation")
             expected += m["num_channels"]
-        if size > 2250:
+        if size > (3000 if board.model == "PixelTool ESP32-C6" else 2250):
             raise ValueError("Port exceeds source-verified 2250 channel capacity")
         outputs.append(
             {"port": i + 1, "pixels": size // 3, "offset": offset, "models": models}

@@ -26,7 +26,8 @@
     "abort": {
       "already_configured": "This board is already configured",
       "reconfigure_successful": "Address updated",
-      "cannot_connect": "Could not verify discovered board"
+      "cannot_connect": "Could not verify discovered board",
+      "pixeltool_destination_found": "PixelTool ESP destination discovered and registered with the companion."
     }
   },
   "options": {

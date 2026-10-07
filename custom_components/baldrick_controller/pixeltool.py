@@ -46,6 +46,7 @@ async def setup_pixeltool(hass):
     if not await hass.async_add_executor_job(p.exists):
         return
     config = json.loads(await hass.async_add_executor_job(p.read_text))
+    hass.data.setdefault("baldrick_controller", {})["pixeltool_config"] = config
     hass.http.register_view(PixelToolView(hass, config))
     frontend.async_register_built_in_panel(
         hass,
@@ -56,7 +57,7 @@ async def setup_pixeltool(hass):
         config={
             "_panel_custom": {
                 "name": "baldrick-pixeltool-panel",
-                "module_url": "/baldrick_controller_static/pixeltool-panel.js?v=0.1.6",
+                "module_url": "/baldrick_controller_static/pixeltool-panel.js?v=0.2.0",
                 "embed_iframe": False,
                 "trust_external": False,
             }

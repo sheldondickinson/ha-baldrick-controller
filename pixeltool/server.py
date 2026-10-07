@@ -18,7 +18,12 @@ from typing import Any
 
 from aiohttp import ClientSession, web
 
-from custom_components.baldrick_controller.api import BaldrickClient, BoardError
+from custom_components.baldrick_controller.api import (
+    BaldrickClient,
+    BoardError,
+    validate_host,
+)
+from custom_components.baldrick_controller.esp_api import EspClient
 
 from .models import PALETTE, Library, import_model, validate_checkpoints
 from .output import configured_outputs, mapped_chunks, mapping, packets
@@ -38,6 +43,7 @@ class Engine:
         except ValueError:
             self.idle_timeout = 60
         self.validate_idle_timeout(self.idle_timeout)
+        self.receiver_token = None
         self.native_active = False
         self.native_stop_uncertain = False
         self.native_deadline = 0.0
@@ -119,13 +125,20 @@ class Engine:
         ):
             raise ValueError("Session absent, expired or owned by another client")
 
+    def client(self, identity):
+        config = next((b for b in self.boards if b["id"] == identity), None)
+        if not config:
+            raise ValueError("Unknown registered destination")
+        if config.get("kind") == "esp":
+            return EspClient(
+                config["host"], self.http, config.get("pin"), expected_id=config["id"]
+            )
+        return BaldrickClient(config["host"], self.http)
+
     async def snapshot(self, identity):
-        board_config = next((b for b in self.boards if b["id"] == identity), None)
-        if not board_config:
-            raise ValueError("Unknown registered board")
-        b = await BaldrickClient(board_config["host"], self.http).snapshot()
+        b = await self.client(identity).snapshot()
         if b.identity != identity:
-            raise ValueError("Board identity changed")
+            raise ValueError("Destination identity changed")
         return b
 
     async def select(self, instance_id):
@@ -159,6 +172,11 @@ class Engine:
             b["host"] for b in self.boards if b["id"] == self.instance["board_id"]
         )
         chunks = mapped_chunks(colours, self.translation)
+        if self.board and self.board.model == "PixelTool ESP32-C6":
+            data = bytearray(max(offset + len(body) for offset, body in chunks))
+            for offset, body in chunks:
+                data[offset : offset + len(body)] = body
+            chunks = [(0, bytes(data))]
         all_packets = []
         for offset, data in chunks:
             for packet in packets(data, offset, self.sequence):
@@ -169,6 +187,8 @@ class Engine:
             self.sock.sendto(packet, (host, 4048))
 
     async def native_test(self, pattern, ack):
+        if self.board and self.board.model == "PixelTool ESP32-C6":
+            raise ValueError("Use PixelTool patterns for ESP destinations")
         if pattern not in (
             "red",
             "green",
@@ -258,6 +278,12 @@ class Engine:
                 for _ in range(5):
                     self.send([(0, 0, 0)] * self.model["count"])
                     await asyncio.sleep(0.05)
+            if self.receiver_token:
+                token = self.receiver_token
+                self.receiver_token = None
+                await self.client(self.instance["board_id"]).command(
+                    "release", token=token
+                )
 
     async def arm(self, ack):
         if ack is not True:
@@ -287,6 +313,19 @@ class Engine:
             != self.revision
         ):
             raise ValueError("Controller configuration changed; reselect mapping")
+        if b.state.get("receiver_owned"):
+            raise ValueError("Another device controls the ESP receiver")
+        if b.model == "PixelTool ESP32-C6":
+            count = (max(ch for _, ch in self.translation) + 3) // 3
+            result = await self.client(self.instance["board_id"]).command(
+                "claim", count=count
+            )
+            if (
+                not isinstance(result.get("token"), str)
+                or not 16 <= len(result["token"]) <= 64
+            ):
+                raise BoardError("Invalid ESP receiver lease")
+            self.receiver_token = result["token"]
         self.armed = True
         self.started = time.monotonic()
         self.last_verified = time.monotonic()
@@ -310,6 +349,10 @@ class Engine:
                     if time.monotonic() - self.last_verified >= 5:
                         b = await self.snapshot(self.instance["board_id"])
                         self.last_verified = time.monotonic()
+                        if self.receiver_token:
+                            await self.client(self.instance["board_id"]).command(
+                                "renew", token=self.receiver_token
+                            )
                         sources = [
                             source
                             for key in ("ddp_sources", "sacn_sources", "artnet_sources")
@@ -378,8 +421,15 @@ async def make_app():
 
     async def health(r):
         return web.json_response(
-            {"status": "ok", "armed": engine.armed, "version": "0.1.6"}
+            {"status": "ok", "armed": engine.armed, "version": "0.2.0"}
         )
+
+    for destination in config["boards"]:
+        try:
+            assignment = library.get("settings", "destination:" + destination["id"])
+            destination["host"] = validate_host(assignment["host"])
+        except ValueError:
+            pass
 
     async def api(r):
         data = await r.json()
@@ -389,6 +439,50 @@ async def make_app():
         async with engine.lock:
             if op == "status":
                 return web.json_response(engine.status())
+            if op == "destination_discovery":
+                host = validate_host(payload["host"])
+                import ipaddress
+
+                if not ipaddress.ip_address(host).is_private:
+                    raise ValueError("Discovery must use a private LAN address")
+                found = await EspClient(host, engine.http).snapshot()
+                existing = next(
+                    (
+                        b
+                        for b in engine.boards
+                        if b["id"] == found.identity and b.get("kind") == "esp"
+                    ),
+                    None,
+                )
+                if not existing:
+                    raise ValueError(
+                        "ESP discovered; pair its private access PIN on the server before output"
+                    )
+                if existing["host"] != host:
+                    existing["host"] = host
+                    with library.db:
+                        library.db.execute(
+                            "INSERT INTO revisions(kind,resource,data) VALUES(?,?,?)",
+                            (
+                                "destination",
+                                found.identity,
+                                json.dumps({"host": host, "kind": "esp"}),
+                            ),
+                        )
+                        library.db.execute(
+                            "INSERT INTO settings(key,data) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET data=excluded.data",
+                            (
+                                "destination:" + found.identity,
+                                json.dumps({"host": host}),
+                            ),
+                        )
+                return web.json_response(
+                    {
+                        "id": found.identity,
+                        "host": host,
+                        "paired": bool(existing.get("pin")),
+                    }
+                )
             if op == "boards":
                 boards = []
                 for b in config["boards"]:
@@ -396,6 +490,7 @@ async def make_app():
                         snap = await engine.snapshot(b["id"])
                         boards.append(
                             {
+                                "kind": b.get("kind", "baldrick"),
                                 "id": b["id"],
                                 "name": snap.settings.get("hostname", snap.model),
                                 "model": snap.model,

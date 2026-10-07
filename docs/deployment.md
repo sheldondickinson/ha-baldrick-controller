@@ -33,3 +33,7 @@ Restore the prior integration/container and database backup if needed. Do not do
 Stop/release output. Remove Baldrick config entries and the dedicated dashboard through HA, remove its resource and PixelTool panel/integration files, check configuration and restart. Stop/remove the companion container. Retain `/data` and secret files until their removal is explicitly intended; deleting models/backups is a separate deliberate action. Existing standalone PixelTool-C6, board firmware and xLights files are unaffected.
 
 When packaging on macOS, use `COPYFILE_DISABLE=1 tar --no-xattrs` so AppleDouble metadata is not included as Python or SQL input. The Docker context excludes `._*` metadata files.
+
+## Portable PixelTool ESP destination
+
+Firmware 0.2.0 in the existing private PixelTool-C6 repository adds the verified receiver. Retrieve its private access file over owner-controlled USB once, retain it outside Git, and register `{ "id": "VERIFIED_MAC_WITHOUT_COLONS", "host": "ESP_PRIVATE_IP", "kind": "esp", "pin": "PRIVATE_ACCESS_PIN" }` in the companion's private board list. Restart the disarmed companion. HA's `_pixeltool._tcp` zeroconf flow verifies and updates an already-paired destination's private address. Baldrick monitoring entries remain separate. The browser sees capacity and identity, never the PIN. The existing ESP GUI and recovery AP continue to work without HA.

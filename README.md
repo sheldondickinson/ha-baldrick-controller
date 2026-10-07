@@ -1,6 +1,6 @@
 # Baldrick Controller and PixelTool
 
-Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.1.6. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
+Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.2.0. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
 
 ## What works
 
@@ -21,7 +21,7 @@ strategy:
   type: custom:baldrick-controller
 ```
 
-The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.1.6` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
+The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.2.0` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
 
 PixelTool is a same-origin HA custom panel at `/pixeltool`, available to HA administrators. Its shell contains no credentials or model data. Authenticated HA API requests are proxied server-side to the companion; this works through the existing HA HTTPS entry point without mixed-content requests or a second login. Configure the private bridge file as documented below.
 
@@ -46,3 +46,5 @@ HACS custom-repository packaging is included (`hacs.json`, manifest, translation
 Output actions automatically acquire ownership and start the selected test. Stop xLights/FPP and board tests first. The configurable UI idle timeout (30–600 seconds, default 60) stops and releases output; passive status polling does not keep a session alive. Uploads, previews and mapping selection do not start output.
 
 Selecting a `.xmodel` or `.xml` file automatically uploads and saves it. Feedback shows file-reading percentage, an indeterminate upload/validation stage through the HA bridge, preview loading and completion. Import failures retain a useful error and re-enable the picker, including retrying the same file. Importing never starts pixel output.
+
+PixelTool-C6 firmware 0.2.0 is also a portable destination: one GPIO output, maximum 1000 pixels, a private receiver lease and HA zeroconf discovery for an already-paired device. Its standalone GUI remains independent. See the [ESP destination decision](docs/decisions/003-esp-destination.md).
