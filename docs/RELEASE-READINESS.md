@@ -12,9 +12,9 @@
 
 ## Publication gates
 
-1. HACS does not support private repositories. The badge is prepared, but publication needs the owner's explicit approval. It is not a HACS default-list submission.
+1. The HA repository is public with owner approval. HACS custom-repository validation and hassfest pass. This is not a HACS default-list submission.
 2. The existing PixelTool-C6 repository/history includes vendor geometry, generated embedded geometry, reference PDFs/screenshots and private bench identifiers. Do not make that complete history public without rights/privacy review. A clean demo export is the safer prepared distribution path.
-3. The ESP feature PR is now merged into its existing default branch after CI passed. Publication still requires the asset/history decision; a private merge is not a public release.
+3. The ESP feature PR is merged privately after CI passed. Only the clean demo source and firmware are distributed publicly.
 4. HA 2026.9 isolated coordinator runtime CI now passes. Full config-flow qualification across every supported release is still broader work.
 5. ESP connected-pixel, electrical signal and final LCD readability checks remain outstanding.
 6. Installer hosting must use HTTPS (or localhost for preview) and publicly accessible firmware assets. A private GitHub URL or file:// page is not a working public installer.
@@ -31,12 +31,12 @@
 - Existing hard-crash Baldrick frame retention; software ownership cannot lock out external DDP.
 - Battery enclosure, power path and real-load validation remain a hardware project.
 
-No public repository switch, HACS submission or public site publication has happened.
+The HA repository and HTTPS project/ESP installer site were published on 08/10/2026. No HACS default-list submission or Facebook posting has happened.
 
 ## Final candidate checks
 
 Hassfest and the HA 2026.9 coordinator runtime job pass. The companion's 45 tests, formatting/type checks and firmware/demo-package CI pass. Known live token/PIN checks over tracked text history found no matches; that is not a substitute for the ESP asset/history review.
 
-The demo source and installer were compiled, checksum-checked and previewed locally without connecting/flashing a board. Its source export is self-contained and strictly file-allowlisted. The personal C6 0.2.1 build passed checks but remains unflashed pending current physical-setup confirmation. The installer is not publicly hosted.
+The demo source and installer were compiled, checksum-checked and previewed locally without connecting/flashing a board. Its source export is self-contained and strictly file-allowlisted. The personal C6 0.2.1 build passed checks but remains unflashed pending current physical-setup confirmation. The installer is publicly hosted at https://sheldondickinson.github.io/ha-baldrick-controller/esp/.
 
-The HA/companion 0.2.1 copy update is deployed and output remains stopped/unowned. HACS validation itself remains gated while private, as required by HACS availability.
+The HA/companion 0.2.1 copy update is deployed and output remains stopped/unowned. Public HACS custom-repository validation passes.
