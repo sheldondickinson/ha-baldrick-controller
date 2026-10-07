@@ -32,3 +32,11 @@
 - Battery enclosure, power path and real-load validation remain a hardware project.
 
 No public repository switch, HACS submission or public site publication has happened.
+
+## Final candidate checks
+
+Hassfest and the HA 2026.9 coordinator runtime job pass. The companion's 45 tests, formatting/type checks and firmware/demo-package CI pass. Known live token/PIN checks over tracked text history found no matches; that is not a substitute for the ESP asset/history review.
+
+The demo source and installer were compiled, checksum-checked and previewed locally without connecting/flashing a board. Its source export is self-contained and strictly file-allowlisted. The personal C6 0.2.1 build passed checks but remains unflashed pending current physical-setup confirmation. The installer is not publicly hosted.
+
+The HA/companion 0.2.1 copy update is deployed and output remains stopped/unowned. HACS validation itself remains gated while private, as required by HACS availability.
