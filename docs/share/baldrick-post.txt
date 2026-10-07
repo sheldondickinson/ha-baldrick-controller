@@ -1,4 +1,4 @@
-I've been building a Home Assistant integration and a pixel-testing tool for my East St Lights display, and thought the Baldrick crowd might find it useful.
+I've been building a Home Assistant integration and a pixel-testing tool for my East St Lights display — a modestly cunning plan for persuading the pixels to behave. Thought the Baldrick crowd might find it useful.
 
 The project has two parts:
 

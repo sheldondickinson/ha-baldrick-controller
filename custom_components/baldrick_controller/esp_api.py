@@ -23,7 +23,10 @@ class EspSnapshot:
 
     @property
     def pixel_output(self):
-        return self.raw["api"] == "pixeltool-ddp-v1" and self.firmware == ["0.2.0"]
+        return self.raw["api"] == "pixeltool-ddp-v1" and self.firmware in (
+            ["0.2.0"],
+            ["0.2.1"],
+        )
 
     @property
     def settings(self):

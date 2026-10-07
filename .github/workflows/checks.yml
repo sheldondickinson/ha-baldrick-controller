@@ -19,3 +19,14 @@ jobs:
       - run: pytest -q
       - run: node --check pixeltool/static/app.js && node --check custom_components/baldrick_controller/frontend/pixeltool-panel.js
       - run: docker build -t pixeltool-check .
+  ha-runtime-floor:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install 'homeassistant>=2026.9,<2026.10'
+      - run: python scripts/verify_installed_ha.py

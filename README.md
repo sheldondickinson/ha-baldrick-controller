@@ -1,6 +1,15 @@
 # Baldrick Controller and PixelTool
 
-Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.2.0. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
+[![Open Baldrick Controller in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=sheldondickinson&repository=ha-baldrick-controller&category=integration)
+[![Set up Baldrick Controller](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=baldrick_controller)
+
+*A modest plan for persuading pixels to behave. Tea is optional.*
+
+**Community beta:** independent of I Light That, Baldrick, xLights and Home Assistant. The repository is currently private. HACS only supports public repositories, so the HACS badge is prepared for publication; it is not a working public download yet.
+
+Start with [installation](docs/INSTALL.md), [first prop test](docs/FIRST-TEST.md), [updates/removal](docs/deployment.md) and [release readiness](docs/RELEASE-READINESS.md).
+
+Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Version 0.2.1 beta. Runtime-tested against Home Assistant 2026.10.0b0. The declared HACS minimum is 2026.9; that minimum still needs its own runtime qualification.
 
 ## What works
 
@@ -12,7 +21,7 @@ Read [compatibility and API evidence](docs/compatibility.md), [architecture](doc
 
 ## Home Assistant
 
-Copy `custom_components/baldrick_controller` into the HA configuration directory, check configuration and restart. Add **Baldrick Controller** in Settings → Devices & services, entering each board hostname/IP. Independently verified Turnip buddy advertisements offer additional boards for confirmation; no unverified mDNS or subnet scan claim is made.
+Copy `custom_components/baldrick_controller` into the HA configuration directory, check configuration and restart. Add **Baldrick Controller** in Settings → Devices & services, entering each board hostname/IP. Independently verified Turnip buddy advertisements offer additional boards for confirmation; Baldrick discovery uses verified Turnip buddy advertisements; paired PixelTool ESP discovery uses its separate mDNS service.
 
 Create a dedicated dashboard with:
 

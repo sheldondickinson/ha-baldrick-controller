@@ -1,4 +1,4 @@
-A little project I've been building for prop assembly and testing: PixelTool, with Home Assistant access and Baldrick output support.
+Because negotiating with every pixel individually is a poor use of an evening, here is a little project I've been building for prop assembly and testing: PixelTool, with Home Assistant access and Baldrick output support.
 
 The idea is to upload a supported custom .xmodel, keep it in a private model library, and use the same colours on the reference map and the physical pixels while testing or pushing a prop.
 

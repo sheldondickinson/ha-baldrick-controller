@@ -421,7 +421,7 @@ async def make_app():
 
     async def health(r):
         return web.json_response(
-            {"status": "ok", "armed": engine.armed, "version": "0.2.0"}
+            {"status": "ok", "armed": engine.armed, "version": "0.2.1"}
         )
 
     for destination in config["boards"]:

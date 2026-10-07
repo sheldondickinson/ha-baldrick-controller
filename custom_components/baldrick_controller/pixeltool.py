@@ -57,7 +57,7 @@ async def setup_pixeltool(hass):
         config={
             "_panel_custom": {
                 "name": "baldrick-pixeltool-panel",
-                "module_url": "/baldrick_controller_static/pixeltool-panel.js?v=0.2.0",
+                "module_url": "/baldrick_controller_static/pixeltool-panel.js?v=0.2.1",
                 "embed_iframe": False,
                 "trust_external": False,
             }
