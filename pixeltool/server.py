@@ -476,6 +476,15 @@ async def make_app():
                                 json.dumps({"host": host}),
                             ),
                         )
+                with library.db:
+                    library.db.execute(
+                        "INSERT INTO revisions(kind,resource,data) VALUES(?,?,?)",
+                        (
+                            "destination_discovery",
+                            found.identity,
+                            json.dumps({"host": host}),
+                        ),
+                    )
                 return web.json_response(
                     {
                         "id": found.identity,
