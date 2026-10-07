@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101c32"/><stop offset="1" stop-color="#17384a"/></linearGradient><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#63e4d6"/></marker></defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<rect x="48" y="40" width="348" height="36" rx="18" fill="#25445b"/>
+<text x="66" y="64" font-size="17" fill="#bceee8" letter-spacing="1">EAST ST LIGHTS · EARLY PREVIEW</text>
+<text x="48" y="154" font-size="72" font-weight="700" fill="#fff">PixelTool</text>
+<text x="416" y="153" font-size="39" font-weight="600" fill="#63e4d6">+ Baldrick Controller</text>
+<text x="50" y="200" font-size="26" fill="#d5e2ef">Model-guided pixel testing, at the bench and in the yard.</text>
+<g fill="#20384d" stroke="#476076" stroke-width="1">
+<rect x="48" y="247" width="352" height="243" rx="20"/>
+<rect x="424" y="247" width="352" height="243" rx="20"/>
+<rect x="800" y="247" width="352" height="243" rx="20"/>
+</g>
+<g fill="#63e4d6" font-size="15" letter-spacing="2" font-weight="700">
+<text x="72" y="281">MONITOR</text><text x="448" y="281">TEST + PUSH</text><text x="824" y="281">PORTABLE DESTINATION</text>
+</g>
+<g fill="#fff" font-size="31" font-weight="700">
+<text x="72" y="326">Home Assistant</text><text x="448" y="326">PixelTool</text><text x="824" y="326">ESP32-C6</text>
+</g>
+<g fill="#d5e2ef" font-size="22">
+<text x="72" y="369">Controller dashboard</text><text x="72" y="405">Online, health and activity</text><text x="72" y="441">Configured output information</text>
+<text x="448" y="369">Private model library</text><text x="448" y="405">Finder, ranges and patterns</text><text x="448" y="441">Maps, runs and checkpoints</text>
+<text x="824" y="369">Standalone tester GUI</text><text x="824" y="405">HA network output receiver</text><text x="824" y="441">Cycling IP display + OTA</text>
+</g>
+<text x="48" y="553" font-size="35" font-weight="700" fill="#fff">Choose a model. Map a prop. Run a test.</text>
+<g fill="#f2f7fa">
+<rect x="48" y="597" width="284" height="126" rx="18"/>
+<rect x="402" y="597" width="312" height="126" rx="18"/>
+<rect x="784" y="597" width="368" height="126" rx="18"/>
+</g>
+<g fill="#13283e" text-anchor="middle">
+<text x="190" y="640" font-size="25" font-weight="700">Phone / browser</text><text x="190" y="679" font-size="21">HA PixelTool interface</text>
+<text x="558" y="640" font-size="25" font-weight="700">Local companion</text><text x="558" y="679" font-size="21">Renders + sends DDP</text>
+<text x="968" y="640" font-size="25" font-weight="700">Baldrick8 / 17 or ESP</text><text x="968" y="679" font-size="21">Drives the connected pixels</text>
+</g>
+<path d="M342 660H389" stroke="#63e4d6" stroke-width="4" marker-end="url(#arrow)"/><path d="M724 660H771" stroke="#63e4d6" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="48" y="777" fill="#c9dfeb" font-size="20">Baldrick8/17: supervised pixel tests · BaldrickDMX: monitoring</text>
+<text x="48" y="812" fill="#c9dfeb" font-size="20">ESP receiver/OTA bench-tested · Battery build and connected-prop checks next</text>
+<text x="48" y="863" fill="#8db6c7" font-size="17">Local network · Existing controller mappings · Stop xLights/FPP output before testing</text>
+<text x="1152" y="863" fill="#8db6c7" font-size="17" text-anchor="end">v0.2.0 · 07/10/2026</text>
+</g></svg>

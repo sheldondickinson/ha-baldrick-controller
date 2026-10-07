@@ -1,0 +1,16 @@
+I've been building a Home Assistant integration and a pixel-testing tool for my East St Lights display, and thought the Baldrick crowd might find it useful.
+
+The project has two parts:
+
+• Baldrick Controller: controller identity, firmware, online status, available health/activity information and configured outputs, with a dedicated dashboard and links to each board's web interface.
+• PixelTool: a phone-friendly model library and testing/pushing interface, opened through Home Assistant. The companion service renders the patterns and sends DDP, so the browser doesn't have to keep rendering frames.
+
+You can upload a supported custom .xmodel or .xml file, preview its numbering, save checkpoints and physical instances, and map it to existing controller outputs. There are pixel finder/walk, inclusive ranges, strand cutter, colour tests and model pushing tools, including colour runs, focus, locate and MARK comparisons.
+
+It uses the controller's existing output configuration. It doesn't rewrite your xLights layout or silently change controller mappings. xLights/FPP output still needs to be stopped during testing: independent DDP senders can compete.
+
+I've tested monitoring on my Baldrick8s, Baldrick17 and BaldrickDMX, and run supervised pixel tests on the 8/17 boards. DMX currently has monitoring, not generic pixel patterns. Other Baldrick models are documented, but I'm not claiming they're all supported yet.
+
+There's also an ESP32-C6 version: it keeps its standalone tester GUI and can now receive output from HA PixelTool. That part has passed network/firmware bench tests; testing it with a connected prop is next.
+
+It's an early personal project, currently in private repositories rather than a public release. I'd be interested in feedback: which monitoring or testing features would be most useful for your display?
