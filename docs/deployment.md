@@ -31,3 +31,5 @@ Restore the prior integration/container and database backup if needed. Do not do
 ## Removal
 
 Stop/release output. Remove Baldrick config entries and the dedicated dashboard through HA, remove its resource and PixelTool panel/integration files, check configuration and restart. Stop/remove the companion container. Retain `/data` and secret files until their removal is explicitly intended; deleting models/backups is a separate deliberate action. Existing standalone PixelTool-C6, board firmware and xLights files are unaffected.
+
+When packaging on macOS, use `COPYFILE_DISABLE=1 tar --no-xattrs` so AppleDouble metadata is not included as Python or SQL input. The Docker context excludes `._*` metadata files.

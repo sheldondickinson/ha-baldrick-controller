@@ -8,3 +8,5 @@ private
 *.tar.gz
 *.sqlite3*
 *.xmodel
+
+**/._*
