@@ -9,7 +9,9 @@
 
 Start with [installation](docs/INSTALL.md), [first prop test](docs/FIRST-TEST.md), [updates/removal](docs/deployment.md) and [release readiness](docs/RELEASE-READINESS.md).
 
-Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Version 0.2.1 beta. Runtime-tested against Home Assistant 2026.10.0b0. The declared HACS minimum is 2026.9; that minimum still needs its own runtime qualification.
+Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Version 0.2.1 beta. Runtime-tested against Home Assistant 2026.10.0b0. The HA 2026.9 version floor now passes isolated coordinator runtime CI; full setup/reconfiguration was exercised on the installed 2026.10 environment.
+
+![Project overview](docs/share/overview.png)
 
 ## What works
 

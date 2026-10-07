@@ -15,7 +15,7 @@
 1. HACS does not support private repositories. The badge is prepared, but publication needs the owner's explicit approval. It is not a HACS default-list submission.
 2. The existing PixelTool-C6 repository/history includes vendor geometry, generated embedded geometry, reference PDFs/screenshots and private bench identifiers. Do not make that complete history public without rights/privacy review. A clean demo export is the safer prepared distribution path.
 3. The ESP feature PR needs release/default-branch review. A private feature branch is not a public release.
-4. The declared HA minimum 2026.9 is not yet runtime-qualified separately from the installed 2026.10 test environment.
+4. HA 2026.9 isolated coordinator runtime CI now passes. Full config-flow qualification across every supported release is still broader work.
 5. ESP connected-pixel, electrical signal and final LCD readability checks remain outstanding.
 6. Installer hosting must use HTTPS (or localhost for preview) and publicly accessible firmware assets. A private GitHub URL or file:// page is not a working public installer.
 7. No Improv Wi-Fi support is claimed. Configure Wi-Fi through the device AP/GUI or documented USB commands.

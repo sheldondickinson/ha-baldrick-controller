@@ -6,7 +6,7 @@
 <text x="66" y="64" font-size="17" fill="#bceee8" letter-spacing="1">EAST ST LIGHTS · EARLY PREVIEW</text>
 <text x="48" y="154" font-size="72" font-weight="700" fill="#fff">PixelTool</text>
 <text x="416" y="153" font-size="39" font-weight="600" fill="#63e4d6">+ Baldrick Controller</text>
-<text x="50" y="200" font-size="26" fill="#d5e2ef">Model-guided pixel testing, at the bench and in the yard.</text>
+<text x="50" y="200" font-size="26" fill="#d5e2ef">A modest plan for pixels with ideas above their station.</text>
 <g fill="#20384d" stroke="#476076" stroke-width="1">
 <rect x="48" y="247" width="352" height="243" rx="20"/>
 <rect x="424" y="247" width="352" height="243" rx="20"/>
@@ -38,5 +38,5 @@
 <text x="48" y="777" fill="#c9dfeb" font-size="20">Baldrick8/17: supervised pixel tests · BaldrickDMX: monitoring</text>
 <text x="48" y="812" fill="#c9dfeb" font-size="20">ESP receiver/OTA bench-tested · Battery build and connected-prop checks next</text>
 <text x="48" y="863" fill="#8db6c7" font-size="17">Local network · Existing controller mappings · Stop xLights/FPP output before testing</text>
-<text x="1152" y="863" fill="#8db6c7" font-size="17" text-anchor="end">v0.2.1 · 07/10/2026</text>
+<text x="1152" y="863" fill="#8db6c7" font-size="17" text-anchor="end">v0.2.1 · 08/10/2026</text>
 </g></svg>

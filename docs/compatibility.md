@@ -12,8 +12,9 @@ Evidence checked 06/10/2026. Status describes evidence, not a promise that all c
 | BaldrickInput8 / untested firmware | Official network input product | Same limitations; eight inputs described | No fabricated input/event entities | Catalogue evidence only |
 | BaldrickBadge | Wearable product; no independently verified network interface | No native network integration claimed | None exposed | Unsupported directly |
 | BaldrickSignals | Auxiliary/status product; no verified independently addressable API | No direct integration claimed | None exposed | Unsupported directly |
+| BaldrickAudio / untested | Official release notes add model support | Interfaces not captured or hardware tested | None claimed | Vendor release evidence only; no runtime adapter |
 | BaldrickEmbed / BaldrickScene | Additional xLights controller identifiers | Catalogue inclusion/current shipping not established | None claimed | Source identifiers only |
-| PixelTool ESP32-C6 / 0.2.0 | MAC identity; `_pixeltool._tcp` via HA | `/api/receiver`; PIN-authenticated claim/renew/release; dense DDP | GPIO, capacity, colour order, cap, frame/drop counts and ownership | USB/OTA and protocol bench validation; disconnected pixel load |
+| PixelTool ESP32-C6 / 0.2.0–0.2.1 | MAC identity; `_pixeltool._tcp` via HA | `/api/receiver`; PIN-authenticated claim/renew/release; dense DDP | GPIO, capacity, colour order, cap, frame/drop counts and ownership | USB/OTA and protocol bench validation; disconnected pixel load |
 | Unknown Baldrick firmware | Verified common board_id + valid common reads | Writes/DDP eligibility disabled | Only present common fields, missing values unavailable | Conservative read-only adapter |
 
 Official catalogue: https://www.baldrickboard.com/en/boards and its individual model pages. xLights authoritative controller/output evidence: `src-core/controllers/ILightThat.cpp`, `src-core/outputs/DDPOutput.cpp`, `controllers/ilightthat.xcontroller` on the inspected default `master` branch. No Falcon endpoint is assumed.
