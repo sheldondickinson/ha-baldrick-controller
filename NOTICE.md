@@ -1,6 +1,6 @@
 # Attribution and asset provenance
 
-Baldrick Controller / PixelTool port: copyright 2026 Sheldon Dickinson. New code is MIT licensed. PixelTool-C6 is the user's existing project; its `PixelLogic.h` test reference and `web/colour.js` renderer are preserved/ported under the owner's instruction. Original repository has no separate permissive licence declaration; the port does not grant rights to unrelated third-party model assets.
+Baldrick Controller / PixelTool port: copyright 2026 Sheldon Dickinson. New code is MIT licensed. PixelTool-C6 is the user's existing project; its `PixelLogic.h` test reference and `web/colour.js` renderer are preserved/ported under the owner's instruction. The prepared PixelTool-C6 code is MIT licensed; neither project licence grants rights to unrelated third-party model assets.
 
 Home Assistant frontend resource registration helper is adapted from ShowPilotFPP/ha-falcon-controller, copyright 2026 ShowPilotFPP, MIT licence (reproduced in LICENSE). The Falcon integration is a UX/pattern reference, not a Baldrick protocol specification.
 

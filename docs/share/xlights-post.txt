@@ -17,6 +17,8 @@ Patterns render on a local companion service and go out as DDP. It uses existing
 
 Baldrick8 and Baldrick17 output has been exercised on my display. The ESP32-C6 tester also now works as a network destination, while retaining its standalone GUI. I'm aiming to put that in a portable battery-powered yard tester; the battery enclosure/power setup and connected-prop validation are still to come.
 
-It's an early personal project, not a public download yet. Current imports cover contiguous, numbered custom RGB models; some other model structures are deliberately rejected rather than silently changed.
+It's now a public community beta. Source/setup: https://github.com/sheldondickinson/ha-baldrick-controller
+
+Demo ESP installer: https://sheldondickinson.github.io/ha-baldrick-controller/esp/ Current imports cover contiguous, numbered custom RGB models; some other model structures are deliberately rejected rather than silently changed.
 
 Would a model-guided tool like this be useful in your workflow? I'd welcome feedback on what you'd want to see next.

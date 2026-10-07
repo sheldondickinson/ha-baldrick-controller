@@ -13,4 +13,6 @@ I've tested monitoring on my Baldrick8s, Baldrick17 and BaldrickDMX, and run sup
 
 There's also an ESP32-C6 version: it keeps its standalone tester GUI and can now receive output from HA PixelTool. That part has passed network/firmware bench tests; testing it with a connected prop is next.
 
-It's an early personal project, currently in private repositories rather than a public release. I'd be interested in feedback: which monitoring or testing features would be most useful for your display?
+It's now available as a public community beta: https://github.com/sheldondickinson/ha-baldrick-controller
+
+HACS setup and the demo ESP installer: https://sheldondickinson.github.io/ha-baldrick-controller/ I'd be interested in feedback: which monitoring or testing features would be most useful for your display?

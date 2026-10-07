@@ -5,7 +5,9 @@
 
 *A modest plan for persuading pixels to behave. Tea is optional.*
 
-**Community beta:** independent of I Light That, Baldrick, xLights and Home Assistant. The repository is currently private. HACS only supports public repositories, so the HACS badge is prepared for publication; it is not a working public download yet.
+**Public community beta:** independent of I Light That, Baldrick, xLights and Home Assistant. Use the HACS badge above for the integration. The companion and ESP firmware are separate components.
+
+[Project and ESP installer](https://sheldondickinson.github.io/ha-baldrick-controller/) · [Beta releases](https://github.com/sheldondickinson/ha-baldrick-controller/releases)
 
 Start with [installation](docs/INSTALL.md), [first prop test](docs/FIRST-TEST.md), [updates/removal](docs/deployment.md) and [release readiness](docs/RELEASE-READINESS.md).
 
@@ -52,7 +54,7 @@ python3 scripts/build_frontend.py
 
 Node.js and a C++ compiler are required for cross-language rendering parity tests. Edit `pixeltool/static/` source templates, then build the HA shell. Do not edit generated shell copies or the standalone ESP32 project. CI uses the same SQL migrations and validation rules. HA-dependent flows are additionally verified on the deployed HA instance; local mypy does not replace HA runtime verification.
 
-HACS custom-repository packaging is included (`hacs.json`, manifest, translations). This repository remains private; it has not been submitted to HACS or published publicly.
+HACS custom-repository packaging is included (`hacs.json`, manifest, translations). This is a public custom repository, not a HACS default-list submission.
 
 Output actions automatically acquire ownership and start the selected test. Stop xLights/FPP and board tests first. The configurable UI idle timeout (30–600 seconds, default 60) stops and releases output; passive status polling does not keep a session alive. Uploads, previews and mapping selection do not start output.
 

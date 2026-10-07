@@ -6,11 +6,11 @@ Monitoring only: install the HA integration and add controllers. PixelTool testi
 
 ## 1. Install the Home Assistant integration
 
-The HACS badge in the README opens this custom repository on your own HA instance after the repository is public. HACS must already be installed. It does not install Docker or ESP firmware. Private repositories cannot be downloaded through HACS.
+The HACS badge in the README opens this public custom repository on your own HA instance. HACS must already be installed. It does not install Docker or ESP firmware. Private repositories cannot be downloaded through HACS.
 
-Once published: HACS → three-dot menu → Custom repositories → enter the repository URL → category Integration → add/download Baldrick Controller → check HA configuration → restart HA. Then Settings → Devices & services → Add integration → Baldrick Controller, or use the setup badge.
+HACS → three-dot menu → Custom repositories → enter the repository URL → category Integration → add/download Baldrick Controller → check HA configuration → restart HA. Then Settings → Devices & services → Add integration → Baldrick Controller, or use the setup badge.
 
-While private: use authenticated GitHub access, copy only custom_components/baldrick_controller into your HA config/custom_components directory, check configuration and restart. Do not copy private credentials or model storage into the integration directory.
+For manual installation: clone this repository, copy only custom_components/baldrick_controller into your HA config/custom_components directory, check configuration and restart. Do not copy private credentials or model storage into the integration directory.
 
 Enter each controller's verified hostname/IP. One entry represents one independently addressable controller. Reconfigure an address through the entry's menu; don't remove/re-add it to change IP. Set a conservative polling interval through entry options.
 

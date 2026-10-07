@@ -2,7 +2,7 @@
 
 ## Is it available to download?
 
-It is currently an early personal deployment in private repositories. Public packaging, wider hardware testing and redistribution review still need to happen before presenting it as a public release. Do not post private repository links as a working download link.
+The HA integration/companion is a public community beta. The demo ESP installer and clean demo source are published separately. The personal ESP repository remains private because of vendor assets and private history. See https://sheldondickinson.github.io/ha-baldrick-controller/ and the beta release notes.
 
 ## Does it replace xLights or FPP?
 
