@@ -1,0 +1,13 @@
+{
+  "version": "0.2.1",
+  "profile": "demo",
+  "board": "Waveshare ESP32-C6-LCD-1.47-M, verified 8 MiB profile",
+  "core": "esp32 3.3.12",
+  "libraries": {
+    "Adafruit NeoPixel": "1.15.5",
+    "Adafruit GFX Library": "1.12.6",
+    "Adafruit BusIO": "1.17.4",
+    "Adafruit ST7735 and ST7789 Library": "1.11.0"
+  },
+  "source_profile": "Original synthetic demo grids; no personal/vendor model geometry"
+}

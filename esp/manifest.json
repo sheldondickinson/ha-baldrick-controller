@@ -1,0 +1,17 @@
+{
+  "name": "PixelTool demo (verified C6 8 MiB profile)",
+  "version": "0.2.1",
+  "new_install_prompt_erase": true,
+  "new_install_improv_wait_time": 0,
+  "builds": [
+    {
+      "chipFamily": "ESP32-C6",
+      "parts": [
+        {
+          "path": "firmware/pixeltool-demo-merged.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
