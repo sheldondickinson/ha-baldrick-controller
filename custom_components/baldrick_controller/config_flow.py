@@ -23,7 +23,16 @@ class BaldrickFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore[ca
 
         config = self.hass.data.get(DOMAIN, {}).get("pixeltool_config")
         if not config:
-            return self.async_abort(reason="cannot_connect")
+            import json
+            from pathlib import Path
+
+            try:
+                path = Path(self.hass.config.path("baldrick_pixeltool.json"))
+                config = json.loads(
+                    await self.hass.async_add_executor_job(path.read_text)
+                )
+            except (OSError, ValueError):
+                return self.async_abort(reason="cannot_connect")
         try:
             async with async_get_clientsession(self.hass).post(
                 config["url"] + "/api",
