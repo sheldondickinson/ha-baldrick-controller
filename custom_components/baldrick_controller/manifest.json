@@ -1,1 +1,21 @@
-{"domain":"baldrick_controller","name":"Baldrick Controller","codeowners":["@sheldondickinson"],"config_flow":true,"documentation":"https://github.com/sheldondickinson/ha-baldrick-controller","issue_tracker":"https://github.com/sheldondickinson/ha-baldrick-controller/issues","iot_class":"local_polling","requirements":[],"version":"0.2.1","zeroconf":["_pixeltool._tcp.local."],"dependencies":["frontend","http","zeroconf"]}
+{
+  "domain": "baldrick_controller",
+  "name": "Baldrick Controller",
+  "codeowners": [
+    "@sheldondickinson"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http",
+    "zeroconf"
+  ],
+  "documentation": "https://github.com/sheldondickinson/ha-baldrick-controller",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/sheldondickinson/ha-baldrick-controller/issues",
+  "requirements": [],
+  "version": "0.2.1",
+  "zeroconf": [
+    "_pixeltool._tcp.local."
+  ]
+}
