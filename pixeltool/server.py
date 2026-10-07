@@ -346,7 +346,7 @@ async def make_app():
 
     async def health(r):
         return web.json_response(
-            {"status": "ok", "armed": engine.armed, "version": "0.1.3"}
+            {"status": "ok", "armed": engine.armed, "version": "0.1.4"}
         )
 
     async def api(r):

@@ -1,12 +1,12 @@
 # Baldrick Controller and PixelTool
 
-Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.1.3. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
+Local Home Assistant monitoring plus a separate Docker PixelTool rendering/output service. Integration domain: `baldrick_controller`. Initial release 0.1.4. Tested against Home Assistant 2026.10.0b0; HACS minimum 2026.9.
 
 ## What works
 
 UI setup, verified board IDs, duplicate prevention, address reconfiguration, shared asynchronous polling, offline/recovery, last contact, temperatures, uptime, firmware, reported warnings, traffic/activity and configured ports. A native-card dashboard builds its views from registered devices. Monitoring does not depend on PixelTool.
 
-PixelTool provides a private uploadable custom `.xmodel` library, saved physical instances and mapping, checkpoint editing/provenance, persistent progress, colour runs, white plus markers, focus, locate, checkpoint navigation, MARK comparisons, front/rear maps, fit/zoom/numbering and first-node offsets. Tools include strand cutting, finder, automatic walk, inclusive ranges, solid colours, rainbow, scan, RGB wipe and manual guide section ends. Rendering and DDP run on the server at 20 fps.
+PixelTool provides a private uploadable custom `.xmodel`/`.xml` library, saved physical instances and mapping, checkpoint editing/provenance, persistent progress, colour runs, white plus markers, focus, locate, checkpoint navigation, MARK comparisons, front/rear maps, fit/zoom/numbering and first-node offsets. Tools include strand cutting, finder, automatic walk, inclusive ranges, solid colours, rainbow, scan, RGB wipe and manual guide section ends. Rendering and DDP run on the server at 20 fps.
 
 Read [compatibility and API evidence](docs/compatibility.md), [architecture](docs/decisions/001-local-components.md), [output and mapping](docs/output.md), [companion API](docs/companion-api.md), [deployment](docs/deployment.md), [validation](docs/validation.md) and [attribution](NOTICE.md). Unsupported firmware writes and ambiguous mappings fail closed. Native pixel tests are limited to identified first-50-pixel loads and five seconds. DMX channel sweeps, relay switching and callback changes are not implemented.
 
@@ -21,7 +21,7 @@ strategy:
   type: custom:baldrick-controller
 ```
 
-The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.1.3` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
+The integration registers `/baldrick_controller_static/baldrick-controller-strategy.js?v=0.1.4` as a module resource. In YAML resource mode add that URL yourself. Existing dashboards are preserved. New registered boards appear when the dashboard is refreshed.
 
 PixelTool is a same-origin HA custom panel at `/pixeltool`, available to HA administrators. Its shell contains no credentials or model data. Authenticated HA API requests are proxied server-side to the companion; this works through the existing HA HTTPS entry point without mixed-content requests or a second login. Configure the private bridge file as documented below.
 
